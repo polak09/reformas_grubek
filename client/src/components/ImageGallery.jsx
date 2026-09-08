@@ -1,39 +1,39 @@
 import { useEffect, useState } from "react";
 
-import img1_1 from "../assets/images/img1.1.jpeg";
-import img1_2 from "../assets/images/img1.2.jpeg";
-import img2 from "../assets/images/img2.jpeg";
-import img2_1 from "../assets/images/img2.1.jpeg";
-import img3 from "../assets/images/img3.jpeg";
+import img1_1 from "../assets/images/Reforma de habitación en Alhama de Murcia.jpeg";
+import img1_2 from "../assets/images/Instalación de falso techo en Alhama de Murcia.jpeg";
+import img2 from "../assets/images/Reforma de baño en Alhama de Murcia.jpeg";
+import img2_1 from "../assets/images/Trabajos de fontanería y electricidad en Alhama de Murcia.jpeg";
+import img3 from "../assets/images/Acabado de pintura y pladur en Alhama de Murcia.jpeg";
 
 const images = [
   {
     src: img1_1,
-    alt: "Reforma",
+    alt: "Reforma de habitación en Alhama de Murcia",
     category: "Reformas",
     className: "md:col-span-6 min-h-80",
   },
   {
     src: img1_2,
-    alt: "Instalación",
+    alt: "Instalación de falso techo en Alhama de Murcia",
     category: "Instalaciones",
     className: "md:col-span-6 min-h-80",
   },
   {
     src: img2,
-    alt: "Reforma",
+    alt: "Reforma de baño en Alhama de Murcia",
     category: "Reformas",
     className: "md:col-span-4 min-h-120",
   },
   {
     src: img2_1,
-    alt: "Instalación",
+    alt: "Trabajos de fontanería y electricidad en Alhama de Murcia",
     category: "Instalaciones",
     className: "md:col-span-4 min-h-120",
   },
   {
     src: img3,
-    alt: "Acabados",
+    alt: "Acabado de pintura y pladur en Alhama de Murcia",
     category: "Acabados",
     className: "md:col-span-4 min-h-120",
   },

@@ -86,7 +86,7 @@ function App() {
           <div className="container-page grid items-stretch gap-10 py-12 sm:py-18 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
             <div className="flex max-w-2xl flex-col justify-center">
               <p className="eyebrow">Alhama de Murcia y alrededores</p>
-              <h1 className="text-4xl leading-[0.96] font-black tracking-[-0.035em] sm:text-6xl lg:text-7xl">Reformas para viviendas y negocios.</h1>
+              <h1 className="text-4xl leading-[0.96] font-black tracking-[-0.035em] sm:text-6xl lg:text-7xl">Reformas en Alhama de Murcia</h1>
               <p className="mt-7 max-w-xl text-lg leading-relaxed text-stone sm:text-xl">Soy Daniel, profesional con +10 años de experiencia realizando reformas e instalaciones. <br />Trato directo, materiales gestionados personalmente y presupuesto sin compromiso.</p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a className="button-primary text-md" href={contact.whatsappLink} target="_blank" rel="noreferrer"><WhatsAppIcon /> Hablar por WhatsApp</a>
@@ -141,7 +141,7 @@ function App() {
               </div>
             </div>
             <Gallery />
-            <p className="mt-8 text-sm font-semibold text-stone text-center ">Si quieres ver más trabajos escríbeme <a href={contact.whatsappLink} className="text-clay underline" target="_blank" rel="noopener noreferrer">aquí</a>.</p>
+            <p className="mt-8 text-sm font-semibold text-stone text-center ">Si quieres ver más trabajos escríbeme a <a href={contact.whatsappLink} className="text-clay underline" target="_blank" rel="noopener noreferrer">whatsapp</a>.</p>
           </div>
         </section>
 
@@ -182,10 +182,10 @@ function App() {
           <div className="container-page grid gap-9 lg:grid-cols-2 lg:items-center">
             <div>
               <p className="eyebrow">Zona de trabajo</p>
-              <h2 className="section-title">Cerca de tí.</h2>
+              <h2 className="section-title">Reformas en Alhama de Murcia y alrededores.</h2>
             </div>
             <div className="rounded-2xl border border-ink/10 bg-cream p-7 sm:p-10">
-              <p className="text-xl leading-relaxed font-medium tracking-tight">Trabajo principalmente en <strong>Alhama de Murcia</strong>, puedo desplazarme a Librilla, Totana y localidades cercanas según el tipo de trabajo.</p>
+              <p className="text-xl leading-relaxed font-medium tracking-tight">Trabajo principalmente en <strong>Alhama de Murcia</strong>, puedo desplazarme a Totana, Condado de Alhama, Camposol y localidades cercanas según el tipo de trabajo.</p>
               <p className="mt-5 text-md leading-relaxed text-stone">Cuéntame qué necesitas y valoro la disponibilidad para tu zona.</p>
             </div>
           </div>
