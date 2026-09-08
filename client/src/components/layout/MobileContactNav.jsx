@@ -1,0 +1,12 @@
+import WhatsAppIcon from '../icons/WhatsAppIcon'
+import PhoneIcon from '../icons/PhoneIcon'
+import { contact } from '../../lib/contact'
+
+export default function MobileContactNav() {
+  return (
+    <nav aria-label="Contacto rápido" className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-2 border-t border-ink/15 bg-white p-2 shadow-[0_-8px_25px_rgba(36,36,33,0.08)] md:hidden">
+      <a className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-clay text-sm font-bold text-white focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:outline-none" href={contact.whatsappLink} target="_blank" rel="noreferrer"><WhatsAppIcon /> WhatsApp</a>
+      <a className="flex min-h-12 items-center justify-center gap-2 rounded-xl text-sm font-bold text-ink focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:outline-none" href={contact.phoneLink}><PhoneIcon /> Llamar</a>
+    </nav>
+  )
+}

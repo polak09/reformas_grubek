@@ -7,7 +7,10 @@
   --color-sand: #ebe7dd;
   --color-clay: #c55531;
   --color-clay-dark: #a64024;
+  --color-surface: #fafafa;
+  --color-surface-warm: #fcf5f0;
   --font-sans: "Plus Jakarta Sans", "Arial", sans-serif;
+  --font-serif: "Noto Serif", "Georgia", serif;
 }
 
 @layer base {
