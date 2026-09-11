@@ -1,0 +1,37 @@
+---
+import SectionHeading from '../components/ui/SectionHeading.astro'
+import PlaceholderImage from '../components/ui/PlaceholderImage.astro'
+
+const { zonas } = Astro.props
+---
+
+<section id="zona" class="bg-surface py-26">
+  <div class="container-page">
+    <SectionHeading>Zona de trabajo</SectionHeading>
+
+    <div class="relative mt-10">
+      <PlaceholderImage label="Mapa zona de trabajo" class="aspect-[1120/880] w-full rounded-2xl" />
+
+      {/* Pins colocados como en el diseño, en % sobre la caja del mapa. */}
+      {zonas.map((zona) => (
+        <div
+          class="absolute hidden w-[15.98%] flex-col items-center md:flex"
+          style={{ left: zona.left, top: zona.top }}
+        >
+          <div class="flex h-[79px] w-full items-center justify-center rounded-2xl border border-ink/10 bg-white px-3 text-center text-sm font-semibold text-ink shadow-sm lg:text-base">
+            {zona.nombre}
+          </div>
+          <div class="h-[50px] w-px bg-ink/40" />
+        </div>
+      ))}
+    </div>
+
+    <ul class="mt-8 flex flex-wrap gap-3 md:hidden">
+      {zonas.map((zona) => (
+        <li class="rounded-full border border-ink/15 bg-sand/60 px-4 py-2 text-sm font-semibold text-ink">
+          {zona.nombre}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

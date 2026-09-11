@@ -1,0 +1,50 @@
+---
+import '../styles/global.css'
+import Header from '../components/layout/Header.astro'
+import Footer from '../components/layout/Footer.astro'
+import MobileContactNav from '../components/layout/MobileContactNav.astro'
+
+const { titulo, ogTitulo, descripcion, ruta } = Astro.props
+
+// Astro.site sale de `site` en astro.config.mjs. Al generarse en build, cada página
+// sirve su propio title/description/canonical en el HTML, sin depender de JavaScript.
+const canonical = new URL(ruta, Astro.site)
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:title" content={ogTitulo ?? titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="google-site-verification" content="x7Mh3DZEK_7qx5q2zbdB4Pb2E01TEPf9cnWTCfiwbu4" />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="overflow-x-hidden pb-20 md:pb-0">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <MobileContactNav />
+  </body>
+</html>

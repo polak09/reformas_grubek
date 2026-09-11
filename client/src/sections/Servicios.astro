@@ -1,0 +1,22 @@
+---
+import SectionHeading from '../components/ui/SectionHeading.astro'
+import PlaceholderImage from '../components/ui/PlaceholderImage.astro'
+
+const { servicios } = Astro.props
+---
+
+{/* 1080 de alto en el diseño, es decir otra pantalla completa. */}
+<section id="servicios" class="flex flex-col justify-center bg-surface py-26 lg:min-h-svh">
+  <div class="container-page">
+    <SectionHeading>Servicios</SectionHeading>
+
+    <div class="mt-10 grid gap-10 sm:grid-cols-2">
+      {servicios.map((servicio) => (
+        <article class="overflow-hidden rounded-2xl border border-ink/10 bg-white">
+          <PlaceholderImage label={servicio} class="aspect-[508/281] w-full" />
+          <p class="p-4 text-lg text-ink sm:text-xl">{servicio}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

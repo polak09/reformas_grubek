@@ -1,0 +1,16 @@
+---
+import { contact } from '../../lib/contact.js'
+---
+
+<footer class="bg-ink py-9 text-white">
+  <div class="container-page flex flex-col gap-5 text-sm sm:flex-row sm:items-center sm:justify-between">
+    <p class="font-bold">REFORMAS <span class="text-clay">GRUBEK</span></p>
+    <p class="text-white/60">Alhama de Murcia · Región de Murcia</p>
+    <a
+      class="font-semibold underline-offset-4 hover:underline focus-visible:underline focus-visible:outline-none"
+      href={contact.phoneLink}
+    >
+      {contact.phoneDisplay}
+    </a>
+  </div>
+</footer>

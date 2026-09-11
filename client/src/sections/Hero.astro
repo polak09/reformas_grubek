@@ -1,0 +1,33 @@
+---
+import ContactIcon from '../components/icons/ContactIcon.astro'
+
+const { h1, texto } = Astro.props
+---
+
+{/* El diseño está trazado sobre 1280x1080: header (70) + hero (1010) = una pantalla. */}
+<section
+  id="inicio"
+  class="relative mt-18 flex min-h-[calc(100svh-4.5rem)] flex-col items-center justify-center bg-ink px-5 py-20 text-center text-white sm:px-8 lg:px-20"
+>
+  <h1 class="max-w-4xl font-serif text-[40px] leading-normal font-bold tracking-[-0.03em] sm:text-[64px]">
+    {h1}
+  </h1>
+
+  <p class="mt-6 max-w-209.75 text-lg leading-relaxed text-white/80 sm:text-xl">
+    {texto}
+  </p>
+
+  <a class="button-primary mt-10 min-h-13.5 px-8 text-lg sm:text-xl" href="#contacto">
+    <ContactIcon /> Pide presupuesto gratis
+  </a>
+
+  <a
+    href="#servicios"
+    aria-label="Ir a servicios"
+    class="absolute bottom-9 left-1/2 hidden -translate-x-1/2 text-white/60 transition hover:text-white focus-visible:text-white focus-visible:outline-none sm:block"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="none" stroke="currentColor" stroke-width="2" d="m2 7l10 10L22 7" />
+    </svg>
+  </a>
+</section>
