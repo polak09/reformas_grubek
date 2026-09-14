@@ -2,17 +2,11 @@
 import WhatsAppIcon from '../icons/WhatsAppIcon.astro'
 import PhoneIcon from '../icons/PhoneIcon.astro'
 import { contact } from '../../lib/contact.js'
-
-const NAV_LINKS = [
-  { href: '#servicios', label: 'Servicios' },
-  { href: '#proyectos', label: 'Proyectos' },
-  { href: '#zona', label: 'Zona' },
-  { href: '#contacto', label: 'Contacto' },
-]
+import { navEnLanding } from '../../lib/navegacion.js'
 
 const {
   homeHref = '/',
-  navLinks = NAV_LINKS,
+  navLinks = navEnLanding,
   background = 'bg-surface-warm',
 } = Astro.props
 ---
@@ -38,8 +32,6 @@ const {
     </nav>
 
     <div class="flex items-center gap-3">
-      {/* El número solo cabe a partir de sm; por debajo ya está el botón de llamar
-          de la barra inferior fija, así que aquí se oculta. */}
       <a
         class="button-secondary hidden min-h-10 px-4 text-xs sm:inline-flex"
         href={contact.phoneLink}
@@ -48,7 +40,7 @@ const {
       </a>
 
       <a
-        class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-clay text-lg text-white transition hover:bg-clay-dark focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:ring-offset-2 focus-visible:outline-none"
+        class="lg:inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-clay text-lg text-white transition hover:bg-clay-dark focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:ring-offset-2 focus-visible:outline-none hidden"
         href={contact.whatsappLink}
         target="_blank"
         rel="noreferrer"
@@ -56,6 +48,57 @@ const {
       >
         <WhatsAppIcon />
       </a>
+
+      <details class="group lg:hidden" data-menu>
+        <summary
+          aria-label="Menú"
+          class="flex size-10 cursor-pointer list-none items-center justify-center rounded-full text-ink transition hover:bg-sand focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:outline-none [&::-webkit-details-marker]:hidden"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" class="group-open:hidden">
+            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" class="hidden group-open:block">
+            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </summary>
+
+        <nav
+          aria-label="Menú"
+          class="absolute inset-x-0 top-full border-b border-ink/10 bg-surface-warm shadow-[0_12px_25px_rgba(36,36,33,0.10)]"
+        >
+          <ul class="container-page flex flex-col py-2">
+            {navLinks.map((link) => (
+              <li class="border-b border-ink/5 last:border-0">
+                <a
+                  class="flex min-h-13 items-center text-base font-semibold text-ink focus-visible:text-clay focus-visible:outline-none"
+                  href={link.href}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            <li class="border-t border-ink/5 sm:hidden">
+              <a
+                class="flex min-h-13 items-center gap-2 text-base font-bold text-clay focus-visible:outline-none"
+                href={contact.phoneLink}
+              >
+                <PhoneIcon /> {contact.phoneDisplay}
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </details>
     </div>
   </div>
 </header>
+
+
+<script is:inline>
+  // Cierre de menú al hacer click en un enlace
+  document.querySelectorAll('[data-menu]').forEach((menu) => {
+    menu.addEventListener('click', (evento) => {
+      if (!evento.target.closest('a')) return
+      setTimeout(() => { menu.open = false }, 0)
+    })
+  })
+</script>

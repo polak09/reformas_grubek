@@ -1,14 +1,26 @@
 ---
+import { Image } from 'astro:assets'
 import ContactIcon from '../components/icons/ContactIcon.astro'
+import fotoHero from '../assets/images/hero.jpg'
 
 const { h1, texto } = Astro.props
 ---
 
-{/* El diseño está trazado sobre 1280x1080: header (70) + hero (1010) = una pantalla. */}
+    quedaría por encima de las secciones siguientes al hacer scroll. */}
 <section
   id="inicio"
-  class="relative mt-18 flex min-h-[calc(100svh-4.5rem)] flex-col items-center justify-center bg-ink px-5 py-20 text-center text-white sm:px-8 lg:px-20"
+  class="relative isolate mt-18 scroll-mt-18 flex min-h-[calc(100svh-4.5rem)] flex-col items-center justify-center bg-ink px-5 py-20 text-center text-white [clip-path:inset(0)] sm:px-8 lg:px-20"
 >
+  <Image
+    src={fotoHero}
+    alt=""
+    priority
+    widths={[640, 960, 1280, 1920]}
+    sizes="max(100vw, calc(100vh * 1.51))"
+    class="absolute inset-0 -z-10 size-full object-cover saturate-50 motion-safe:fixed motion-safe:h-lvh"
+  />
+  <div aria-hidden="true" class="absolute inset-0 -z-10 bg-ink/72"></div>
+
   <h1 class="max-w-4xl font-serif text-[40px] leading-normal font-bold tracking-[-0.03em] sm:text-[64px]">
     {h1}
   </h1>
@@ -17,16 +29,23 @@ const { h1, texto } = Astro.props
     {texto}
   </p>
 
-  <a class="button-primary mt-10 min-h-13.5 px-8 text-lg sm:text-xl" href="#contacto">
+  <a class="button-primary mt-10 min-h-13.5 px-8 text-lg font-semibold sm:text-xl" href="#contacto">
     <ContactIcon /> Pide presupuesto gratis
   </a>
 
   <a
     href="#servicios"
     aria-label="Ir a servicios"
-    class="absolute bottom-9 left-1/2 hidden -translate-x-1/2 text-white/60 transition hover:text-white focus-visible:text-white focus-visible:outline-none sm:block"
+    class="group absolute bottom-9 left-1/2 hidden -translate-x-1/2 text-white focus-visible:outline-none sm:block"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      class="block origin-center opacity-60 motion-safe:animate-palpitar motion-safe:transition motion-safe:duration-300 group-hover:animate-none group-hover:scale-120 group-hover:opacity-100 group-focus-visible:animate-none group-focus-visible:scale-120 group-focus-visible:opacity-100"
+    >
       <path fill="none" stroke="currentColor" stroke-width="2" d="m2 7l10 10L22 7" />
     </svg>
   </a>

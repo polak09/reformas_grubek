@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://reformasgrubek.es/sitemap-index.xml
+Sitemap: https://reformasgrubek.es/sitemap.xml

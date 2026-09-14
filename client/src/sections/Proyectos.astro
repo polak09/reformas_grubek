@@ -1,7 +1,6 @@
 ---
 import SectionHeading from '../components/ui/SectionHeading.astro'
 import PlaceholderImage from '../components/ui/PlaceholderImage.astro'
-import { contact } from '../lib/contact.js'
 
 const { proyectos } = Astro.props
 ---
@@ -10,35 +9,29 @@ const { proyectos } = Astro.props
   <div class="container-page">
     <SectionHeading>Proyectos</SectionHeading>
 
-    <div class="mt-10 space-y-20">
+    <div class="mt-10 space-y-14 lg:space-y-20">
       {proyectos.map((proyecto) => (
         <div
           class:list={[
-            'grid items-center gap-9 lg:gap-[35px]',
+            'grid items-center gap-5 lg:gap-8.75',
             proyecto.imagenPrimero ? 'lg:grid-cols-[820fr_266fr]' : 'lg:grid-cols-[266fr_820fr]',
           ]}
         >
+          <h3 class="text-2xl leading-normal text-black sm:text-[32px]">
+            {proyecto.titulo}
+          </h3>
           <PlaceholderImage
             label={proyecto.titulo}
-            class={`aspect-[820/461] w-full rounded-2xl ${proyecto.imagenPrimero ? '' : 'lg:order-2'}`}
+            class={`aspect-820/461 w-full rounded-2xl ${proyecto.imagenPrimero ? 'lg:order-first' : ''}`}
           />
-          <p
-            class:list={[
-              'text-2xl leading-normal text-black sm:text-[32px]',
-              !proyecto.imagenPrimero && 'lg:order-1',
-            ]}
-          >
-            {proyecto.titulo}
-          </p>
         </div>
       ))}
     </div>
 
     <p class="mt-20 text-center text-base text-stone">
       Para ver más proyectos <a
-        href={contact.whatsappLink}
+        href="#contacto"
         class="font-semibold text-clay underline"
-        target="_blank"
         rel="noopener noreferrer"
       >contáctame</a>
     </p>

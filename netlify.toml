@@ -1,0 +1,15 @@
+# La web vive en client/, así que base apunta ahí y publish es relativo a base.
+# Ojo: este archivo tiene prioridad sobre lo configurado en el panel de Netlify.
+[build]
+  base = "client"
+  command = "pnpm build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Los assets llevan hash en el nombre: nunca cambian, se pueden cachear para siempre.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

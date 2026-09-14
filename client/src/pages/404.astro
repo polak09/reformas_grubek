@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import WhatsAppIcon from '../components/icons/WhatsAppIcon.astro'
+import { contact } from '../lib/contact.js'
+import { navHaciaHome } from '../lib/navegacion.js'
+import { LOCALIDADES } from '../data/localidades.js'
+
+// Las localidades salen de los datos, así que cualquier landing nueva aparece aquí sola.
+const destinos = [
+  ...navHaciaHome,
+  ...LOCALIDADES.map(({ slug, nombre }) => ({
+    href: `/reformas/${slug}`,
+    label: `Reformas en ${nombre}`,
+  })),
+]
+---
+
+<BaseLayout
+  titulo="Página no encontrada | Reformas Grubek"
+  descripcion="La página que buscas no existe o ha cambiado de dirección. Vuelve al inicio o escríbenos y te ayudamos."
+  navLinks={navHaciaHome}
+  noindex
+>
+  <section
+    class="mt-18 flex min-h-[calc(100svh-4.5rem)] flex-col items-center justify-center bg-surface px-5 py-20 text-center sm:px-8"
+  >
+  
+      <p class="text-sm font-semibold text-stone">Error 404</p>
+
+    <h1
+      class="mt-10 max-w-2xl font-serif text-[32px] leading-tight font-bold tracking-[-0.03em] text-ink sm:text-[48px]"
+    >
+      Esta página no existe
+    </h1>
+
+    <p class="mt-5 max-w-125 text-lg leading-relaxed text-stone">
+      Puede que la dirección esté mal escrita o que la página haya cambiado de sitio.
+    </p>
+
+    <div class="mt-9 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
+      <a class="button-primary min-h-13 px-7 text-base" href="/">Volver al inicio</a>
+      <a
+        class="button-secondary min-h-13 px-7 text-base"
+        href={contact.whatsappLink}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <WhatsAppIcon /> Escríbeme por WhatsApp
+      </a>
+    </div>
+
+    <nav aria-label="Secciones del sitio" class="mt-12 w-full max-w-3xl">
+      <p class="text-sm font-semibold text-stone">O ve directamente a:</p>
+      <ul class="mt-4 flex flex-wrap justify-center gap-2.5">
+        {destinos.map((destino) => (
+          <li>
+            <a
+              class="inline-flex min-h-10 items-center rounded-full border border-ink/15 bg-white px-4 text-sm font-semibold text-ink transition hover:border-ink hover:bg-sand focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:outline-none"
+              href={destino.href}
+            >
+              {destino.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </section>
+</BaseLayout>
