@@ -1,0 +1,20 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import Hero from '../sections/Hero.astro'
+import Servicios from '../sections/Servicios.astro'
+import Proyectos from '../sections/Proyectos.astro'
+import Zona from '../sections/Zona.astro'
+import Contacto from '../sections/Contacto.astro'
+
+// Estructura común a la home y a cada página de localidad; solo cambian los datos.
+const { landing } = Astro.props
+const { seo, hero, proyectos } = landing
+---
+
+<BaseLayout {...seo}>
+  <Hero {...hero} />
+  <Servicios />
+  <Proyectos proyectos={proyectos} />
+  <Zona />
+  <Contacto />
+</BaseLayout>

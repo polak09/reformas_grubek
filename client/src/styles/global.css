@@ -7,7 +7,24 @@
   --color-sand: #ebe7dd;
   --color-clay: #c55531;
   --color-clay-dark: #a64024;
-  --font-sans: "Plus Jakarta Sans", "Arial", sans-serif;
+  --color-surface: #fafafa;
+  --color-surface-warm: #fcf5f0;
+  --font-sans: var(--font-plus-jakarta-sans);
+  --font-serif: var(--font-noto-serif);
+
+  --animate-palpitar: palpitar 3s ease-in-out -1.5s infinite;
+
+  @keyframes palpitar {
+    0%,
+    100% {
+      opacity: 0.6;
+      scale: 1;
+    }
+    50% {
+      opacity: 1;
+      scale: 1.2;
+    }
+  }
 }
 
 @layer base {
@@ -51,5 +68,39 @@
 
   .button-secondary {
     @apply inline-flex min-h-13 items-center justify-center gap-2 rounded-full border border-ink/20 bg-white px-6 text-sm font-bold text-ink transition hover:border-ink hover:bg-sand focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:ring-offset-2 focus-visible:outline-none;
+  }
+}
+
+@layer components {
+  .texto-legal {
+    @apply text-base leading-relaxed text-stone;
+  }
+
+  .texto-legal h2 {
+    @apply mt-12 mb-4 font-serif text-2xl leading-snug font-bold text-ink sm:text-[28px];
+  }
+
+  .texto-legal h3 {
+    @apply mt-8 mb-3 text-base font-bold text-ink;
+  }
+
+  .texto-legal p {
+    @apply mb-4;
+  }
+
+  .texto-legal ul {
+    @apply mb-4 flex flex-col gap-2 pl-5;
+  }
+
+  .texto-legal li {
+    @apply list-disc marker:text-clay;
+  }
+
+  .texto-legal a {
+    @apply font-semibold text-clay underline underline-offset-2 transition hover:text-clay-dark;
+  }
+
+  .texto-legal strong {
+    @apply font-bold text-ink;
   }
 }

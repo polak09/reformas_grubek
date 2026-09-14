@@ -1,0 +1,16 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro'
+import { LOCALIDADES, landingDeLocalidad } from '../../data/localidades.js'
+
+// Una página estática por entrada de LOCALIDADES: añadir una localidad nueva.
+export function getStaticPaths() {
+  return LOCALIDADES.map((localidad) => ({
+    params: { ciudad: localidad.slug },
+    props: { landing: landingDeLocalidad(localidad) },
+  }))
+}
+
+const { landing } = Astro.props
+---
+
+<LandingLayout landing={landing} />

@@ -1,0 +1,35 @@
+---
+import SectionHeading from '../components/ui/SectionHeading.astro'
+import WhatsAppIcon from '../components/icons/WhatsAppIcon.astro'
+import PhoneIcon from '../components/icons/PhoneIcon.astro'
+import { contact } from '../lib/contact.js'
+---
+
+<section id="contacto" class="bg-clay py-26 text-white">
+  <div class="container-page text-center">
+    <SectionHeading inverted class="mx-auto max-w-3xl">
+      ¿Tienes un proyecto en mente?
+    </SectionHeading>
+
+    <p class="mx-auto mt-6 min-h-13.5 text-lg text-white/85 sm:text-xl">
+      Cuéntame qué necesitas y hablamos directamente.
+    </p>
+
+    <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+      <a
+        class="inline-flex min-h-13.5 items-center justify-center gap-2 rounded-full bg-white px-6 text-lg font-semibold text-ink transition hover:bg-cream focus-visible:ring-3 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-clay focus-visible:outline-none"
+        href={contact.whatsappLink}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <WhatsAppIcon /> Escribir por WhatsApp
+      </a>
+      <a
+        class="inline-flex min-h-13.5 items-center justify-center gap-2 rounded-full border border-white/40 px-6 text-lg font-semibold text-white transition hover:bg-white/10 focus-visible:ring-3 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-clay focus-visible:outline-none"
+        href={contact.phoneLink}
+      >
+        <PhoneIcon /> {contact.phoneDisplay}
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+---
+const { label, class: className = '' } = Astro.props
+---
+
+<div
+  role="img"
+  aria-label={`Imagen pendiente: ${label}`}
+  class:list={[
+    'flex items-center justify-center border border-dashed border-ink/25 bg-sand/40 p-4 text-center text-xs font-semibold text-stone',
+    className,
+  ]}
+>
+  Imagen: {label}
+</div>

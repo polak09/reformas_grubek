@@ -1,0 +1,116 @@
+---
+import { Image } from 'astro:assets'
+import SectionHeading from '../components/ui/SectionHeading.astro'
+import WhatsAppIcon from '../components/icons/WhatsAppIcon.astro'
+import { servicios } from '../data/servicios.js'
+---
+
+<section
+  id="servicios"
+  class="flex flex-col justify-center bg-surface py-26 lg:min-h-svh lg:pt-24 lg:pb-12"
+>
+  <div class="container-page">
+    <SectionHeading>Servicios</SectionHeading>
+
+    <p class="mt-6 max-w-160 text-lg leading-relaxed text-stone sm:text-xl">
+      Hacemos desde reformas integrales hasta trabajos concretos, tanto en viviendas como en negocios.
+    </p>
+
+    {/* Carrusel con scroll-snap nativo: se desliza con el dedo, el trackpad o el
+        teclado sin JavaScript. Los botones son una mejora que se activa encima. */}
+    <div
+      class="relative mt-10"
+      data-carrusel
+      role="region"
+      aria-roledescription="carrusel"
+      aria-label="Servicios"
+    >
+      <ul
+        class="flex snap-x snap-mandatory gap-4 overflow-x-auto scrollbar-none [&::-webkit-scrollbar]:hidden"
+        data-pista
+      >
+        {servicios.map((servicio) => (
+          <li class="w-[78%] shrink-0 snap-start sm:w-[46%] lg:w-[22%]">
+            <a
+              href={servicio.enlace}
+              target="_blank"
+              rel="noreferrer"
+              class="group relative flex aspect-4/5 flex-col justify-between overflow-hidden rounded-2xl bg-linear-to-br from-ink to-stone p-5 text-white focus-visible:ring-3 focus-visible:ring-clay focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              {servicio.foto && (
+                <Image
+                  src={servicio.foto}
+                  alt=""
+                  widths={[320, 480, 640, 800]}
+                  sizes="(min-width: 1024px) 260px, (min-width: 640px) 46vw, 78vw"
+                  class="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
+                />
+              )}
+              {/* Oscurece arriba y abajo, donde va el texto, y deja ver la foto en medio. */}
+              <div aria-hidden="true" class="absolute inset-0 bg-linear-to-b from-ink/80 via-ink/15 to-ink/15"></div>
+
+              <h3 class="relative text-lg leading-snug font-bold">{servicio.nombre}</h3>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      {/* Ocultos hasta que el script confirma que pueden funcionar. */}
+      <button
+        type="button"
+        data-anterior
+        hidden
+        aria-label="Servicio anterior"
+        class="absolute top-1/2 left-0 z-10 hidden size-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-ink shadow-[0_4px_16px_rgba(36,36,33,0.18)] transition hover:bg-cream focus-visible:ring-3 focus-visible:ring-clay/40 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-0 md:flex"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        data-siguiente
+        hidden
+        aria-label="Servicio siguiente"
+        class="absolute top-1/2 right-0 z-10 hidden size-12 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-ink shadow-[0_4px_16px_rgba(36,36,33,0.18)] transition hover:bg-cream focus-visible:ring-3 focus-visible:ring-clay/40 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-0 md:flex"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  document.querySelectorAll('[data-carrusel]').forEach((carrusel) => {
+    const pista = carrusel.querySelector('[data-pista]')
+    const anterior = carrusel.querySelector('[data-anterior]')
+    const siguiente = carrusel.querySelector('[data-siguiente]')
+
+    anterior.hidden = false
+    siguiente.hidden = false
+
+    // Avanza exactamente una tarjeta más el hueco, para caer siempre en un punto de snap.
+    const paso = () =>
+      pista.firstElementChild.getBoundingClientRect().width +
+      parseFloat(getComputedStyle(pista).columnGap)
+    const suave = !matchMedia('(prefers-reduced-motion: reduce)').matches
+    const mover = (sentido) =>
+      pista.scrollBy({ left: sentido * paso(), behavior: suave ? 'smooth' : 'auto' })
+
+    anterior.addEventListener('click', () => mover(-1))
+    siguiente.addEventListener('click', () => mover(1))
+
+    const actualizar = () => {
+      const enfocado = document.activeElement
+      anterior.disabled = pista.scrollLeft <= 1
+      siguiente.disabled = pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 1
+      // Un botón desactivado pierde el foco: se pasa al otro para no dejarlo en el aire.
+      if (enfocado?.disabled) (enfocado === anterior ? siguiente : anterior).focus()
+    }
+    pista.addEventListener('scroll', actualizar, { passive: true })
+    window.addEventListener('resize', actualizar)
+    actualizar()
+  })
+</script>

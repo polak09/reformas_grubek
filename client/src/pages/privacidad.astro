@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { contact } from '../lib/contact.js'
+import { navHaciaHome } from '../lib/navegacion.js'
+import { legal, ULTIMA_ACTUALIZACION, datosPendientes } from '../data/legal.js'
+---
+
+<BaseLayout
+  titulo="Política de privacidad | Reformas Grubek"
+  descripcion="Cómo tratamos tus datos personales en Reformas Grubek: qué recogemos, para qué, con quién lo compartimos y cómo ejercer tus derechos."
+  ruta="/privacidad"
+  navLinks={navHaciaHome}
+>
+  <article class="mt-18 bg-surface px-5 py-20 sm:px-8 lg:py-26">
+    <div class="mx-auto w-full max-w-3xl">
+
+      <h1 class="font-serif text-[32px] leading-tight font-bold tracking-[-0.03em] text-ink sm:text-[48px]">
+        Política de privacidad
+      </h1>
+
+      <p class="mt-4 text-sm text-stone">Última actualización: {ULTIMA_ACTUALIZACION}</p>
+      <div class="texto-legal mt-10">
+        <p>
+          Esta página explica qué hacemos con tus datos personales cuando visitas esta web
+          o te pones en contacto con nosotros.
+        </p>
+
+        <h2>1. Quién trata tus datos</h2>
+        <p>
+          El responsable del tratamiento es <strong>{legal.titular}</strong>, con NIF <strong>{legal.nif}</strong> y domicilio en <strong>{legal.domicilio}</strong>.
+        </p>
+        <p>
+          Para cualquier cuestión relacionada con tus datos puedes escribir a <strong>{legal.email}</strong> o llamar al <a href={contact.phoneLink}>{contact.phoneDisplay}</a>.
+        </p>
+
+        <h2>2. Qué datos recogemos</h2>
+        <p>
+          <strong>Esta web no tiene formularios.</strong> Para navegar por ella no se te pide
+          ningún dato ni hace falta registrarse. Los únicos datos que llegamos a tratar son
+          estos:
+        </p>
+
+        <h3>Los que nos das al contactarnos</h3>
+        <p>
+          Cuando nos escribes por WhatsApp o nos llamas por teléfono recibimos tu número, el
+          nombre que tengas configurado y lo que nos cuentes sobre el trabajo: dirección de
+          la obra, qué quieres reformar y las fotos que nos envíes, si las envías.
+        </p>
+
+        <h3>Los que genera tu visita</h3>
+        <p>
+          El servidor donde está alojada la web (Netlify) registra automáticamente la
+          dirección IP, la fecha y la hora de la visita y el navegador utilizado. Son
+          registros técnicos necesarios para servir la página y protegerla frente a ataques.
+        </p>
+
+        <h3>Ningún recurso de terceros</h3>
+        <p>
+          Las tipografías de la web están alojadas en nuestro propio servidor, así que tu
+          navegador no se conecta con Google ni con ninguna otra empresa al cargar la
+          página. Tampoco hay publicidad, mapas incrustados ni vídeos externos.
+        </p>
+
+        <h2>3. Para qué los usamos</h2>
+        <p>Cada tratamiento tiene una base legal que lo justifica:</p>
+        <ul>
+          <li>
+            <strong>Responder a tu consulta y preparar un presupuesto.</strong> Aplicación de
+            medidas precontractuales a petición tuya (artículo 6.1.b del RGPD).
+          </li>
+          <li>
+            <strong>Ejecutar la obra</strong>, si llegamos a un acuerdo. Ejecución de un
+            contrato (artículo 6.1.b del RGPD).
+          </li>
+          <li>
+            <strong>Facturar y cumplir con Hacienda.</strong> Obligación legal (artículo
+            6.1.c del RGPD).
+          </li>
+          <li>
+            <strong>Mantener la web funcionando y protegida.</strong> Interés legítimo
+            (artículo 6.1.f del RGPD).
+          </li>
+        </ul>
+        <p>
+          No usamos tus datos para publicidad, no elaboramos perfiles y no tomamos decisiones
+          automatizadas sobre ti.
+        </p>
+
+        <h2>4. Cuánto tiempo los conservamos</h2>
+        <ul>
+          <li>
+            <strong>Si nos consultas y no llegamos a trabajar juntos:</strong> conservamos la
+            conversación mientras el presupuesto siga vivo y, como máximo, un año desde el
+            último contacto.
+          </li>
+          <li>
+            <strong>Si contratamos:</strong> los datos de la obra y de la facturación se
+            conservan durante los plazos que exige la ley — cuatro años en materia tributaria
+            y seis años en materia mercantil.
+          </li>
+        </ul>
+
+        <h2>5. Con quién los compartimos</h2>
+        <p>
+          No vendemos, alquilamos ni cedemos tus datos a nadie con fines comerciales. Solo
+          acceden a ellos quienes nos prestan servicios necesarios para trabajar:
+        </p>
+        <ul>
+          <li><strong>Netlify</strong>, que aloja esta web.</li>
+          <li><strong>Meta (WhatsApp)</strong>, si eliges ese canal para escribirnos.</li>
+          <li>
+            <strong>Nuestra gestoría y la Agencia Tributaria</strong>, si llegamos a emitirte
+            una factura.
+          </li>
+        </ul>
+        <p>
+          <strong>Transferencias fuera de la Unión Europea:</strong> si nos escribes por
+          WhatsApp, Meta puede tratar esa conversación en Estados Unidos, acogiéndose al
+          Marco de Privacidad de Datos UE-EE. UU. y a las cláusulas contractuales tipo
+          aprobadas por la Comisión Europea. Si prefieres evitarlo, llámanos por teléfono.
+        </p>
+
+        <h2>6. Tus derechos</h2>
+        <p>Puedes ejercer en cualquier momento y de forma gratuita tu derecho a:</p>
+        <ul>
+          <li><strong>Acceso:</strong> saber qué datos tuyos tenemos.</li>
+          <li><strong>Rectificación:</strong> corregir los que sean inexactos.</li>
+          <li><strong>Supresión:</strong> pedir que los borremos.</li>
+          <li><strong>Oposición:</strong> pedir que dejemos de tratarlos.</li>
+          <li><strong>Limitación:</strong> pedir que los conservemos pero no los usemos.</li>
+          <li><strong>Portabilidad:</strong> recibirlos en un formato reutilizable.</li>
+        </ul>
+        <p>
+          Para ejercerlos, escribe a <strong>{legal.email}</strong> indicando qué derecho
+          quieres ejercer. Te responderemos en el plazo máximo de un mes.
+        </p>
+        <p>
+          Si consideras que no hemos atendido correctamente tu solicitud, puedes presentar
+          una reclamación ante la Agencia Española de Protección de Datos (C/ Jorge Juan 6,
+          28001 Madrid) a través de <a href="https://www.aepd.es" target="_blank" rel="noreferrer">www.aepd.es</a>.
+        </p>
+
+        <h2>7. Cookies</h2>
+        <p>
+          <strong>Esta web no instala cookies.</strong> No usamos cookies propias ni de
+          terceros, no hay herramientas de analítica como Google Analytics, ni píxeles
+          publicitarios, ni ningún sistema que siga tu navegación. Tampoco guardamos nada en
+          el almacenamiento local de tu navegador.
+        </p>
+        <p>Por eso no verás un banner pidiéndote permiso: no hay nada que consentir.</p>
+        <p>
+          Al cargar la página tu navegador no contacta con ningún tercero: todo lo que la
+          web necesita, tipografías incluidas, se sirve desde nuestro propio dominio.
+        </p>
+
+        <h2>8. Cambios en esta política</h2>
+        <p>
+          Si cambiamos la forma en que tratamos los datos — por ejemplo, si añadimos un
+          formulario de contacto o una herramienta de analítica — actualizaremos esta página
+          y modificaremos la fecha de última actualización que aparece arriba. Te
+          recomendamos revisarla de vez en cuando.
+        </p>
+
+        <h2>9. Contacto</h2>
+        <p>
+          Para cualquier duda sobre esta política o sobre el tratamiento de tus datos:
+        </p>
+        <ul>
+          <li>Correo electrónico: <strong>{legal.email}</strong></li>
+          <li>Teléfono: <a href={contact.phoneLink}>{contact.phoneDisplay}</a></li>
+          <li>Dirección: <strong>{legal.domicilio}</strong></li>
+        </ul>
+      </div>
+
+      <p class="mt-14 border-t border-ink/10 pt-8">
+        <a class="button-secondary min-h-12 px-6 text-sm" href="/">Volver al inicio</a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>

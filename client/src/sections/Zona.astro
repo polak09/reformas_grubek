@@ -1,0 +1,30 @@
+---
+import SectionHeading from '../components/ui/SectionHeading.astro'
+import PlaceholderImage from '../components/ui/PlaceholderImage.astro'
+import { MUNICIPIO_PRINCIPAL, OTROS_MUNICIPIOS } from '../data/localidades.js'
+
+const ultimo = OTROS_MUNICIPIOS.at(-1)
+const resto = `${OTROS_MUNICIPIOS.slice(0, -1).join(', ')} y ${ultimo}`
+---
+
+<section id="zona" class="flex flex-col justify-center bg-surface py-26 lg:min-h-svh lg:pt-24 lg:pb-12">
+  <div class="container-page">
+    <SectionHeading>Zona de trabajo</SectionHeading>
+    <div class="mt-8 flex flex-col justify-center gap-8 lg:flex-row">
+      <div>
+        <p class="mt-6 max-w-160 text-lg leading-relaxed text-stone sm:text-xl">
+          Trabajo principalmente en <strong class="font-semibold text-ink">{MUNICIPIO_PRINCIPAL}</strong>. También me desplazo a {resto}.
+        </p>
+        
+        <p class="mt-3 max-w-160 text-base text-stone">
+          ¿No ves tu municipio? Escríbeme y valoro la disponibilidad para tu zona.
+        </p>
+      </div>
+  
+
+      <div class="aspect-1120/880 w-full lg:h-[min(46svh,35vw)] lg:w-auto">
+        <PlaceholderImage label="Mapa zona de trabajo" class="h-full w-full rounded-2xl" />
+      </div>
+    </div>
+  </div>
+</section>

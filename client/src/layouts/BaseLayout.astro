@@ -1,0 +1,63 @@
+---
+import { Font } from 'astro:assets'
+import '../styles/global.css'
+import Header from '../components/layout/Header.astro'
+import Footer from '../components/layout/Footer.astro'
+import MobileContactNav from '../components/layout/MobileContactNav.astro'
+
+const {
+  titulo,
+  ogTitulo,
+  descripcion,
+  ruta,
+  // La 404 no debe indexarse ni declarar canonical: no es una página real del sitio.
+  noindex = false,
+  navLinks,
+} = Astro.props
+
+// Astro.site sale de `site` en astro.config.mjs. Al generarse en build, cada página
+// sirve su propio title/description/canonical en el HTML, sin depender de JavaScript.
+const canonical = ruta ? new URL(ruta, Astro.site) : null
+
+// El logo hace lo que todo el mundo espera de un logo: llevar al sitio principal.
+// La excepción es la propia portada, donde en vez de recargar sube al principio.
+const logoHref = ruta === '/' ? '#inicio' : '/'
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    <meta property="og:title" content={ogTitulo ?? titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:type" content="website" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="google-site-verification" content="x7Mh3DZEK_7qx5q2zbdB4Pb2E01TEPf9cnWTCfiwbu4" />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    {/* Tipografías autoalojadas: se sirven desde este mismo dominio, sin pasar por
+        Google, y se precargan para que el texto no parpadee al cargar. */}
+    <Font cssVariable="--font-plus-jakarta-sans" preload />
+    <Font cssVariable="--font-noto-serif" preload />
+  </head>
+
+  <body class="overflow-x-hidden pb-20 md:pb-0">
+    <Header navLinks={navLinks} homeHref={logoHref} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <MobileContactNav />
+  </body>
+</html>
