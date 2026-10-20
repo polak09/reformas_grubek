@@ -10,16 +10,18 @@ import { servicios } from '../data/servicios.js'
   class="flex flex-col justify-center bg-surface py-26 lg:min-h-svh lg:pt-24 lg:pb-12"
 >
   <div class="container-page">
-    <SectionHeading>Servicios</SectionHeading>
+    <SectionHeading data-aparecer>Servicios</SectionHeading>
 
-    <p class="mt-6 max-w-160 text-lg leading-relaxed text-stone sm:text-xl">
-      Hacemos desde reformas integrales hasta trabajos concretos, tanto en viviendas como en negocios.
+    <p data-aparecer class="mt-8 text-lg leading-lectura text-stone sm:text-xl">
+      Realizo reformas integrales, reformas parciales, reformas de cocinas, reformas de baños, trabajos de pintura,
+      instalaciones de ventanas, instalaciones de falsos techos, alicatados, suelos, electricidad, fontanería y mucho más.
     </p>
 
     {/* Carrusel con scroll-snap nativo: se desliza con el dedo, el trackpad o el
         teclado sin JavaScript. Los botones son una mejora que se activa encima. */}
     <div
-      class="relative mt-10"
+      class="relative mt-12"
+      data-aparecer
       data-carrusel
       role="region"
       aria-roledescription="carrusel"

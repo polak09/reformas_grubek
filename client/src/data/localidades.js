@@ -1,6 +1,3 @@
-// Sección "Proyectos": filas alternas de imagen (820x461) con la etiqueta al lado.
-const TIPOS_PROYECTO = ['Reforma', 'Instalación', 'Acabado']
-
 // Sección "Zona": el municipio donde se concentra el trabajo y el resto de sitios
 // a los que se va. De aquí sale el texto de la sección, así que añadir un municipio
 // nuevo es añadirlo a esta lista.
@@ -31,10 +28,6 @@ function crearLanding({ nombre, ruta, titulo, descripcion }) {
       h1: `Reformas ${nombre}`,
       texto: TEXTO_HERO,
     },
-    proyectos: TIPOS_PROYECTO.map((tipo, i) => ({
-      titulo: `${tipo} en ${nombre}`,
-      imagenPrimero: i % 2 === 0,
-    })),
   }
 }
 

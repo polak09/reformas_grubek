@@ -1,8 +1,9 @@
 ---
-const { inverted = false, class: className = '' } = Astro.props
+const { inverted = false, class: className = '', ...atributos } = Astro.props
 ---
 
 <h2
+  {...atributos}
   class:list={[
     'font-serif text-[32px] leading-normal font-bold tracking-[-0.03em] sm:text-[48px]',
     inverted ? 'text-white' : 'text-black',

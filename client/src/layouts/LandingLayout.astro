@@ -8,13 +8,13 @@ import Contacto from '../sections/Contacto.astro'
 
 // Estructura común a la home y a cada página de localidad; solo cambian los datos.
 const { landing } = Astro.props
-const { seo, hero, proyectos } = landing
+const { seo, hero } = landing
 ---
 
-<BaseLayout {...seo}>
+<BaseLayout {...seo} headerSobreHero>
   <Hero {...hero} />
   <Servicios />
-  <Proyectos proyectos={proyectos} />
+  <Proyectos />
   <Zona />
   <Contacto />
 </BaseLayout>

@@ -8,7 +8,7 @@ const { h1, texto } = Astro.props
 
 <section
   id="inicio"
-  class="relative isolate mt-18 scroll-mt-18 flex min-h-[calc(100svh-4.5rem)] flex-col items-center justify-center bg-ink px-5 py-20 text-center text-white [clip-path:inset(0)] sm:px-8 lg:px-20"
+  class="relative isolate flex min-h-svh flex-col items-center justify-center bg-ink px-5 py-24 text-center text-white [clip-path:inset(0)] sm:px-8 lg:px-20"
 >
   <Image
     src={fotoHero}
@@ -20,15 +20,15 @@ const { h1, texto } = Astro.props
   />
   <div aria-hidden="true" class="absolute inset-0 -z-10 bg-ink/72"></div>
 
-  <h1 class="max-w-4xl font-serif text-[40px] leading-normal font-bold tracking-[-0.03em] sm:text-[64px]">
+  <h1 data-aparecer class="max-w-4xl font-serif text-[40px] leading-normal font-bold tracking-[-0.03em] sm:text-[64px]">
     {h1}
   </h1>
 
-  <p class="mt-6 max-w-209.75 text-lg leading-relaxed text-white/80 sm:text-xl">
+  <p data-aparecer class="mt-6 max-w-209.75 text-lg leading-lectura text-white/80 sm:text-xl">
     {texto}
   </p>
 
-  <a class="button-primary mt-10 min-h-13.5 px-8 text-lg font-semibold sm:text-xl" href="#contacto">
+  <a data-aparecer class="button-primary mt-10 min-h-13.5 px-8 text-lg font-semibold sm:text-xl" href="#contacto">
     <ContactIcon /> Pide presupuesto gratis
   </a>
 

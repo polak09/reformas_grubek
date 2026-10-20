@@ -1,13 +1,12 @@
 ---
 import SectionHeading from '../components/ui/SectionHeading.astro'
 import PlaceholderImage from '../components/ui/PlaceholderImage.astro'
-
-const { proyectos } = Astro.props
+import { proyectos } from '../data/proyectos.js'
 ---
 
 <section id="proyectos" class="bg-surface-warm py-26">
   <div class="container-page">
-    <SectionHeading>Proyectos</SectionHeading>
+    <SectionHeading data-aparecer>Trabajos Realizados</SectionHeading>
 
     <div class="mt-10 space-y-14 lg:space-y-20">
       {proyectos.map((proyecto) => (
@@ -17,10 +16,11 @@ const { proyectos } = Astro.props
             proyecto.imagenPrimero ? 'lg:grid-cols-[820fr_266fr]' : 'lg:grid-cols-[266fr_820fr]',
           ]}
         >
-          <h3 class="text-2xl leading-normal text-black sm:text-[32px]">
+          <h3 data-aparecer class="text-2xl leading-normal text-black sm:text-[32px]">
             {proyecto.titulo}
           </h3>
           <PlaceholderImage
+            data-aparecer
             label={proyecto.titulo}
             class={`aspect-820/461 w-full rounded-2xl ${proyecto.imagenPrimero ? 'lg:order-first' : ''}`}
           />
@@ -28,7 +28,7 @@ const { proyectos } = Astro.props
       ))}
     </div>
 
-    <p class="mt-20 text-center text-base text-stone">
+    <p data-aparecer class="mt-20 text-center text-base leading-lectura text-stone">
       Para ver más proyectos <a
         href="#contacto"
         class="font-semibold text-clay underline"

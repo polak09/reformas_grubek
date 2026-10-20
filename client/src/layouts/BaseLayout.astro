@@ -13,6 +13,8 @@ const {
   // La 404 no debe indexarse ni declarar canonical: no es una página real del sitio.
   noindex = false,
   navLinks,
+  // Las landings abren con el hero a pantalla completa y la cabecera encima.
+  headerSobreHero = false,
 } = Astro.props
 
 // Astro.site sale de `site` en astro.config.mjs. Al generarse en build, cada página
@@ -50,14 +52,40 @@ const logoHref = ruta === '/' ? '#inicio' : '/'
         Google, y se precargan para que el texto no parpadee al cargar. */}
     <Font cssVariable="--font-plus-jakarta-sans" preload />
     <Font cssVariable="--font-noto-serif" preload />
+
+    {/* Va en el <head> para que lo que tiene que aparecer ya salga oculto en el primer
+        pintado. Sin JavaScript, o con el movimiento reducido, todo se ve desde el principio. */}
+    <script is:inline>
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.toggleAttribute('data-animar', true)
+      }
+    </script>
   </head>
 
   <body class="overflow-x-hidden pb-20 md:pb-0">
-    <Header navLinks={navLinks} homeHref={logoHref} />
+    <Header navLinks={navLinks} homeHref={logoHref} sobreHero={headerSobreHero} />
     <main>
       <slot />
     </main>
     <Footer />
     <MobileContactNav />
+
+    <script is:inline>
+      // Cada bloque marcado con data-aparecer se funde al entrar en pantalla. Los que
+      // entran a la vez (el contenido de una sección) lo hacen escalonados, en orden.
+      if (document.documentElement.hasAttribute('data-animar')) {
+        const observador = new IntersectionObserver((entradas) => {
+          entradas
+            .filter((entrada) => entrada.isIntersecting)
+            .forEach(({ target }, orden) => {
+              target.style.setProperty('--orden', orden)
+              target.toggleAttribute('data-visible', true)
+              observador.unobserve(target)
+            })
+        }, { rootMargin: '0px 0px -8% 0px' })
+
+        document.querySelectorAll('[data-aparecer]').forEach((bloque) => observador.observe(bloque))
+      }
+    </script>
   </body>
 </html>

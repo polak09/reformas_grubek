@@ -8,39 +8,51 @@ const {
   homeHref = '/',
   navLinks = navEnLanding,
   background = 'bg-surface-warm',
+  // En las landings la cabecera empieza transparente encima de la foto del hero,
+  // enseñando solo la navegación, y aparece completa en cuanto se hace scroll.
+  sobreHero = false,
 } = Astro.props
 ---
 
-<header class:list={['fixed inset-x-0 top-0 z-50 border-b border-ink/10', background]}>
-  <div class="container-page flex min-h-18 items-center justify-between gap-5">
+<header
+  data-header
+  class:list={[
+    'group/header fixed inset-x-0 top-0 z-50 border-b border-ink/10 transition-colors duration-300 data-arriba:border-transparent data-arriba:bg-transparent',
+    background,
+  ]}
+>
+  <div class="container-page flex min-h-18 items-center justify-between gap-5 lg:grid lg:grid-cols-[1fr_auto_1fr]">
     <a
       href={homeHref}
-      class="text-sm font-black tracking-[-0.04em] focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:outline-none"
+      class="justify-self-start text-sm font-black tracking-[-0.04em] transition-[opacity,visibility] duration-300 group-data-arriba/header:invisible group-data-arriba/header:opacity-0 focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:outline-none"
     >
       REFORMAS <span class="text-clay">GRUBEK</span>
     </a>
 
     <nav
       aria-label="Navegación principal"
-      class="hidden items-center gap-7 text-sm font-semibold text-stone lg:flex"
+      class="hidden items-center gap-7 text-sm font-semibold text-stone transition-colors duration-300 group-data-arriba/header:text-white/85 lg:flex"
     >
       {navLinks.map((link) => (
-        <a class="hover:text-ink focus-visible:text-ink focus-visible:outline-none" href={link.href}>
+        <a
+          class="hover:text-ink focus-visible:text-ink focus-visible:outline-none group-data-arriba/header:hover:text-white group-data-arriba/header:focus-visible:text-white"
+          href={link.href}
+        >
           {link.label}
         </a>
       ))}
     </nav>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 justify-self-end">
       <a
-        class="button-secondary hidden min-h-10 px-4 text-xs sm:inline-flex"
+        class="button-secondary hidden min-h-10 px-4 text-xs group-data-arriba/header:invisible group-data-arriba/header:opacity-0 sm:inline-flex"
         href={contact.phoneLink}
       >
         <PhoneIcon /> {contact.phoneDisplay}
       </a>
 
       <a
-        class="lg:inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-clay text-lg text-white transition hover:bg-clay-dark focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:ring-offset-2 focus-visible:outline-none hidden"
+        class="lg:inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-clay text-lg text-white transition hover:bg-clay-dark focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:ring-offset-2 focus-visible:outline-none group-data-arriba/header:invisible group-data-arriba/header:opacity-0 hidden"
         href={contact.whatsappLink}
         target="_blank"
         rel="noreferrer"
@@ -52,7 +64,7 @@ const {
       <details class="group lg:hidden" data-menu>
         <summary
           aria-label="Menú"
-          class="flex size-10 cursor-pointer list-none items-center justify-center rounded-full text-ink transition hover:bg-sand focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:outline-none [&::-webkit-details-marker]:hidden"
+          class="flex size-10 cursor-pointer list-none items-center justify-center rounded-full text-ink transition hover:bg-sand focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:outline-none group-data-arriba/header:text-white group-data-arriba/header:hover:bg-white/10 [&::-webkit-details-marker]:hidden"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" class="group-open:hidden">
             <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
@@ -102,3 +114,17 @@ const {
     })
   })
 </script>
+
+{sobreHero && (
+  <script is:inline>
+    // Arriba del todo la cabecera se funde con el hero; al hacer scroll o al abrir el
+    // menú vuelve a ser la barra fija de siempre. Sin el script se queda como barra.
+    document.querySelectorAll('[data-header]').forEach((cabecera) => {
+      const menu = cabecera.querySelector('[data-menu]')
+      const actualizar = () => cabecera.toggleAttribute('data-arriba', scrollY < 10 && !menu.open)
+      addEventListener('scroll', actualizar, { passive: true })
+      menu.addEventListener('toggle', actualizar)
+      actualizar()
+    })
+  </script>
+)}
