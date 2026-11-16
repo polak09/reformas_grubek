@@ -1,30 +1,79 @@
 ---
 import SectionHeading from '../components/ui/SectionHeading.astro'
-import PlaceholderImage from '../components/ui/PlaceholderImage.astro'
-import { MUNICIPIO_PRINCIPAL, OTROS_MUNICIPIOS } from '../data/localidades.js'
+import { MUNICIPIO_PRINCIPAL, OTROS_MUNICIPIOS, rutaDeMunicipio } from '../data/localidades.js'
 
 const ultimo = OTROS_MUNICIPIOS.at(-1)
 const resto = `${OTROS_MUNICIPIOS.slice(0, -1).join(', ')} y ${ultimo}`
+
+// Cada municipio enlaza a su landing (o a la home, en el caso de Murcia). El de la
+// página en la que estás no se enlaza a sí mismo: se marca como "Estás aquí".
+const rutaActual = Astro.url.pathname.replace(/\/+$/, '') || '/'
+const municipios = [MUNICIPIO_PRINCIPAL, ...OTROS_MUNICIPIOS].map((nombre) => {
+  const ruta = rutaDeMunicipio(nombre)
+  const actual = ruta === rutaActual
+  return { nombre, actual, href: ruta && !actual ? ruta : null }
+})
 ---
 
 <section id="zona" class="flex flex-col justify-center bg-surface py-26 lg:min-h-svh lg:pt-24 lg:pb-12">
   <div class="container-page">
     <SectionHeading data-aparecer>Zona de trabajo</SectionHeading>
-    <div class="mt-8 flex flex-col justify-center gap-8 lg:flex-row">
-      <div data-aparecer>
-        <p class="mt-6 max-w-160 text-lg leading-lectura text-stone sm:text-xl">
-          Trabajo principalmente en <strong class="font-semibold text-ink">{MUNICIPIO_PRINCIPAL}</strong>. También me desplazo a {resto}.
-        </p>
 
-        <p class="mt-3 max-w-160 text-base leading-lectura text-stone">
-          ¿No ves tu municipio? <a href="#contacto" class="font-semibold text-clay underline" rel="noopener noreferrer">Escríbeme</a> y valoro la disponibilidad para tu zona.
-        </p>
-      </div>
-  
+    <div data-aparecer class="mt-6">
+      <p class="max-w-160 text-lg leading-lectura text-stone sm:text-xl">
+        Trabajo principalmente en <strong class="font-semibold text-ink">{MUNICIPIO_PRINCIPAL}</strong>. También me desplazo a {resto}.
+      </p>
 
-      <div data-aparecer class="aspect-1120/880 w-full lg:h-[min(46svh,35vw)] lg:w-auto">
-        <PlaceholderImage label="Mapa zona de trabajo" class="h-full w-full rounded-2xl" />
-      </div>
+      <p class="mt-3 max-w-160 text-base leading-lectura text-stone">
+        ¿No ves tu municipio? <a href="#contacto" class="font-semibold text-clay underline" rel="noopener noreferrer">Escríbeme</a> y valoro la disponibilidad para tu zona.
+      </p>
     </div>
+
+    {/* Móvil: de dos en dos. Desde tablet: tres columnas, dos filas. */}
+    <ul class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:gap-4">
+      {municipios.map((municipio, i) => {
+        const Tarjeta = municipio.href ? 'a' : 'div'
+        return (
+          <li data-aparecer style={`--orden: ${i}`}>
+            <Tarjeta
+              href={municipio.href}
+              aria-current={municipio.actual ? 'page' : undefined}
+              class:list={[
+                'group flex h-full min-h-24 flex-col justify-between gap-3 rounded-2xl border bg-white p-4 text-ink transition focus-visible:ring-3 focus-visible:ring-clay/40 focus-visible:ring-offset-2 focus-visible:outline-none sm:p-5 lg:min-h-36',
+                municipio.actual ? 'border-clay' : 'border-ink/10',
+                municipio.href && 'hover:border-ink/30',
+              ]}
+            >
+              <span class="flex flex-col gap-1">
+                <span class="text-base leading-snug font-semibold sm:text-lg">
+                  {municipio.href && <span class="sr-only">Reformas en </span>}
+                  {municipio.nombre}
+                </span>
+                {municipio.actual && <span class="text-sm text-clay-dark">Estás aquí</span>}
+              </span>
+
+              {municipio.href && (
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  class="shrink-0 self-end text-stone transition group-hover:translate-x-1 group-hover:text-clay"
+                >
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 12h14M13 6l6 6-6 6"
+                  />
+                </svg>
+              )}
+            </Tarjeta>
+          </li>
+        )
+      })}
+    </ul>
   </div>
 </section>

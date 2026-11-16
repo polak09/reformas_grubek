@@ -1,13 +1,13 @@
-// Sección "Trabajos realizados": filas alternas de imagen (820x461) con el título al
-// lado. Son obras concretas, así que salen iguales en todas las landings. El título
-// es también el texto alternativo de la imagen.
-const PROYECTOS = [
-  { titulo: 'Reforma en Alhama de Murcia' },
-  { titulo: 'Instalación en Alhama de Murcia' },
-  { titulo: 'Acabado en Totana' },
-]
+import fotoBano from '../assets/images/Reforma de baño en Alhama de Murcia.jpeg'
+import fotoHabitacion from '../assets/images/Reforma de habitación en Alhama de Murcia.jpeg'
+import fotoPintura from '../assets/images/Acabado de pintura y pladur en Alhama de Murcia.jpeg'
 
-export const proyectos = PROYECTOS.map((proyecto, i) => ({
-  ...proyecto,
-  imagenPrimero: i % 2 === 0,
-}))
+// Sección "Trabajos realizados": cada obra ocupa la pantalla entera con su título encima.
+// Son obras concretas, así que salen iguales en todas las landings. El título describe
+// la foto y es también su texto alternativo, así que tiene que decir lo que se ve.
+// Una obra sin `foto` sale con fondo oscuro, como en Servicios.
+export const proyectos = [
+  { titulo: 'Reforma de baño en Alhama de Murcia', foto: fotoBano },
+  { titulo: 'Reforma de habitación en Alhama de Murcia', foto: fotoHabitacion },
+  { titulo: 'Pintura y pladur en Alhama de Murcia', foto: fotoPintura },
+]

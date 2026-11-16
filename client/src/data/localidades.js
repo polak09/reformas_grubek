@@ -31,8 +31,10 @@ function crearLanding({ nombre, ruta, titulo, descripcion }) {
   }
 }
 
+const NOMBRE_HOME = 'Murcia'
+
 export const home = crearLanding({
-  nombre: 'Murcia',
+  nombre: NOMBRE_HOME,
   ruta: '/',
   titulo: 'Reformas en Murcia | Presupuesto sin compromiso',
   descripcion:
@@ -74,6 +76,14 @@ export const LOCALIDADES = [
       'Reformas y mantenimiento de viviendas en Condado de Alhama: baños, interiores, pintura, pladur, fontanería y electricidad. Presupuesto sin compromiso.',
   },
 ]
+
+// Página propia de un municipio de la Zona: su landing, la home si es Murcia, o null
+// si aún no tiene (entonces sale en la lista sin enlace).
+export function rutaDeMunicipio(nombre) {
+  if (nombre === NOMBRE_HOME) return home.seo.ruta
+  const localidad = LOCALIDADES.find((l) => l.nombre === nombre)
+  return localidad ? `/reformas/${localidad.slug}` : null
+}
 
 export function landingDeLocalidad({ slug, nombre, descripcion }) {
   return crearLanding({
