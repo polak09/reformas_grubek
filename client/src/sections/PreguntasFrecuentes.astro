@@ -1,0 +1,35 @@
+---
+import SectionHeading from '../components/ui/SectionHeading.astro'
+
+// Acordeón con <details>: se abre y se cierra sin JavaScript, y Google lee las
+// respuestas aunque estén plegadas.
+const { titulo, lista } = Astro.props
+---
+
+<section id="preguntas" class="bg-surface pb-26 lg:pb-24">
+  <div class="container-page">
+    <SectionHeading data-aparecer class="max-w-4xl">{titulo}</SectionHeading>
+
+    <div class="mt-10 flex max-w-4xl flex-col gap-3">
+      {lista.map(({ pregunta, respuesta }) => (
+        <details data-aparecer class="group rounded-2xl border border-ink/10 bg-white transition open:border-ink/25">
+          <summary
+            class="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl p-5 focus-visible:ring-3 focus-visible:ring-clay/40 focus-visible:outline-none sm:p-6 [&::-webkit-details-marker]:hidden"
+          >
+            <h3 class="text-base leading-snug font-semibold sm:text-lg">{pregunta}</h3>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              class="shrink-0 text-clay transition group-open:rotate-45"
+            >
+              <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14" />
+            </svg>
+          </summary>
+          <p class="px-5 pb-5 text-base leading-lectura text-stone sm:px-6 sm:pb-6">{respuesta}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

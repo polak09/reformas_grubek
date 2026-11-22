@@ -7,7 +7,7 @@ import { navEnLanding } from '../../lib/navegacion.js'
 const {
   homeHref = '/',
   navLinks = navEnLanding,
-  background = 'bg-surface-warm',
+  background = 'bg-surface',
   // En las landings la cabecera empieza transparente encima de la foto del hero,
   // enseñando solo la navegación, y aparece completa en cuanto se hace scroll.
   sobreHero = false,
@@ -76,7 +76,7 @@ const {
 
         <nav
           aria-label="Menú"
-          class="absolute inset-x-0 top-full border-b border-ink/10 bg-surface-warm shadow-[0_12px_25px_rgba(36,36,33,0.10)]"
+          class="absolute inset-x-0 top-full border-b border-ink/10 bg-surface shadow-[0_12px_25px_rgba(36,36,33,0.10)]"
         >
           <ul class="container-page flex flex-col py-2">
             {navLinks.map((link) => (

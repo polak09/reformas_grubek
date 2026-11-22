@@ -4,17 +4,27 @@ import Hero from '../sections/Hero.astro'
 import Servicios from '../sections/Servicios.astro'
 import Proyectos from '../sections/Proyectos.astro'
 import Zona from '../sections/Zona.astro'
+import PreguntasFrecuentes from '../sections/PreguntasFrecuentes.astro'
 import Contacto from '../sections/Contacto.astro'
+import { imagenSocial, schemaNegocio, schemaMigas } from '../lib/schema.js'
 
 // Estructura común a la home y a cada página de localidad; solo cambian los datos.
+// Las secciones de `contenido` solo salen en las landings que tienen texto propio.
 const { landing } = Astro.props
-const { seo, hero } = landing
+const { seo, hero, contenido } = landing
+
+const { url: imagen } = await imagenSocial(Astro.site)
+const schema = [
+  schemaNegocio(Astro.site, imagen),
+  ...(seo.ruta === '/' ? [] : [schemaMigas(Astro.site, { nombre: hero.h1, ruta: seo.ruta })]),
+]
 ---
 
-<BaseLayout {...seo} headerSobreHero>
+<BaseLayout {...seo} schema={schema} headerSobreHero>
   <Hero {...hero} />
   <Servicios />
   <Proyectos />
   <Zona />
+  {contenido?.preguntas && <PreguntasFrecuentes {...contenido.preguntas} />}
   <Contacto />
 </BaseLayout>

@@ -17,7 +17,7 @@ import { contact } from '../lib/contact.js'
 
     <div data-aparecer class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
       <a
-        class="inline-flex min-h-13.5 items-center justify-center gap-2 rounded-full bg-white px-6 text-lg font-semibold text-ink transition hover:bg-cream focus-visible:ring-3 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-clay focus-visible:outline-none"
+        class="inline-flex min-h-13.5 items-center justify-center gap-2 rounded-full bg-white min-w-67.75 px-6 text-base font-semibold text-ink transition hover:bg-cream focus-visible:ring-3 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-clay focus-visible:outline-none"
         href={contact.whatsappLink}
         target="_blank"
         rel="noreferrer"
@@ -25,7 +25,7 @@ import { contact } from '../lib/contact.js'
         <WhatsAppIcon /> Escribir por WhatsApp
       </a>
       <a
-        class="inline-flex min-h-13.5 items-center justify-center gap-2 rounded-full border border-white/40 px-6 text-lg font-semibold text-white transition hover:bg-white/10 focus-visible:ring-3 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-clay focus-visible:outline-none"
+        class="inline-flex min-h-13.5 items-center justify-center gap-2 rounded-full border border-white/40 min-w-56.5 px-6 text-base font-semibold text-white transition hover:bg-white/10 focus-visible:ring-3 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-clay focus-visible:outline-none"
         href={contact.phoneLink}
       >
         <PhoneIcon /> {contact.phoneDisplay}

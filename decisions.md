@@ -39,6 +39,20 @@ estática por cada entrada de `LOCALIDADES` en `src/data/localidades.js`.
 Añadir un municipio es añadir una entrada. Cambiar una sección se hace una vez
 y afecta a todas las páginas.
 
+Una landing puede llevar además su propio H1 (que también da el `<title>`) y un
+`contenido` con texto que solo sale en ella. Hoy solo la tiene Alhama de Murcia
+(`src/data/contenidoAlhama.js`), que es la página que compite por "reformas integrales
+alhama de murcia". Sin texto propio, las landings son la misma página con otro nombre
+y Google no posiciona bien ninguna de ellas.
+
+## Datos estructurados del negocio
+
+La home y las landings publican en el `<head>` un JSON-LD `HomeAndConstructionBusiness`
+(nombre, teléfono, Alhama de Murcia, municipios y servicios) y, en las de localidad,
+unas migas de pan. Sale de `src/lib/schema.js`, a partir de los mismos datos que la
+web, así que no hay que mantenerlo a mano. El nombre y el teléfono tienen que coincidir
+con la ficha de Google Business Profile.
+
 ## Estructura modular
 
 ```
