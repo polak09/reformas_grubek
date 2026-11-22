@@ -20,13 +20,13 @@ export default defineConfig({
     },
     {
       provider: fontProviders.google(),
-      name: 'Noto Serif',
-      cssVariable: '--font-noto-serif',
+      name: 'Bodoni Moda',
+      cssVariable: '--font-bodoni-moda',
       // Solo se usa en titulares, y siempre en negrita.
       weights: [700],
       styles: ['normal'],
       subsets: ['latin'],
-      fallbacks: ['Georgia', 'serif'],
+      fallbacks: ['Bodoni MT', 'Didot', 'Georgia', 'serif'],
     },
   ],
 

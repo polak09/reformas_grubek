@@ -8,7 +8,7 @@ const { h1, texto } = Astro.props
 
 <section
   id="inicio"
-  class="relative isolate mt-18 scroll-mt-18 flex min-h-[calc(100svh-4.5rem)] flex-col items-center justify-center bg-ink px-5 py-20 text-center text-white [clip-path:inset(0)] sm:px-8 lg:px-20"
+  class="relative isolate flex min-h-svh flex-col items-center justify-center bg-ink px-5 py-24 text-center text-white [clip-path:inset(0)] sm:px-8 lg:px-20"
 >
   <Image
     src={fotoHero}
@@ -20,22 +20,23 @@ const { h1, texto } = Astro.props
   />
   <div aria-hidden="true" class="absolute inset-0 -z-10 bg-ink/72"></div>
 
-  <h1 class="max-w-4xl font-serif text-[40px] leading-normal font-bold tracking-[-0.03em] sm:text-[64px]">
+  <h1 data-aparecer class="max-w-4xl font-serif text-[40px] leading-normal font-bold tracking-[-0.03em] sm:text-[64px]">
     {h1}
   </h1>
 
-  <p class="mt-6 max-w-209.75 text-lg leading-relaxed text-white/80 sm:text-xl">
+  <p data-aparecer class="mt-6 max-w-209.75 text-lg leading-lectura text-white/80 sm:text-xl">
     {texto}
   </p>
 
-  <a class="button-primary mt-10 min-h-13.5 px-8 text-lg font-semibold sm:text-xl" href="#contacto">
+  <a data-aparecer class="button-primary mt-10 min-h-13.5 min-w-74 px-8 text-base font-semibold sm:min-w-80.25 sm:text-lg" href="#contacto">
     <ContactIcon /> Pide presupuesto gratis
   </a>
 
   <a
     href="#servicios"
+    data-flecha
     aria-label="Ir a servicios"
-    class="group absolute bottom-9 left-1/2 hidden -translate-x-1/2 text-white focus-visible:outline-none sm:block"
+    class="group absolute bottom-3 left-1/2 hidden -translate-x-1/2 rounded-full px-24 py-6 text-white focus-visible:outline-none sm:block"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -43,9 +44,41 @@ const { h1, texto } = Astro.props
       height="24"
       viewBox="0 0 24 24"
       aria-hidden="true"
-      class="block origin-center opacity-60 motion-safe:animate-palpitar motion-safe:transition motion-safe:duration-300 group-hover:animate-none group-hover:scale-120 group-hover:opacity-100 group-focus-visible:animate-none group-focus-visible:scale-120 group-focus-visible:opacity-100"
+      class="block opacity-60 motion-safe:animate-rebotar motion-safe:transition motion-safe:duration-150 motion-safe:ease-out group-hover:opacity-100 group-focus-visible:opacity-100"
     >
       <path fill="none" stroke="currentColor" stroke-width="2" d="m2 7l10 10L22 7" />
     </svg>
   </a>
 </section>
+
+{/* Al pasar el ratón la flecha baja desde donde esté y se queda abajo; al salir retoma el
+    rebote desde ese punto. Con solo CSS, quitar la animación la haría saltar a 0. */}
+<script>
+  const enlace = document.querySelector<HTMLAnchorElement>('[data-flecha]')
+  const icono = enlace?.querySelector('svg')
+
+  if (enlace && icono && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const bajar = () => {
+      const y = getComputedStyle(icono).translate
+      icono.style.animation = 'none'
+      icono.style.translate = y === 'none' ? '0 0' : y
+      // Un fotograma después, para que el navegador registre el punto de partida.
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (enlace.matches(':hover, :focus-visible')) icono.style.translate = '0 6px'
+      }))
+    }
+    // Al salir no hay vuelta a 0: el rebote se retoma justo en el punto más bajo (mitad
+    // del ciclo de 1,2 s) y sigue a su velocidad normal.
+    const soltar = () => {
+      if (enlace.matches(':hover, :focus-visible')) return
+      icono.style.translate = ''
+      icono.style.animation = ''
+      icono.style.animationDelay = '-0.6s'
+    }
+
+    enlace.addEventListener('pointerenter', bajar)
+    enlace.addEventListener('focus', () => enlace.matches(':focus-visible') && bajar())
+    enlace.addEventListener('pointerleave', soltar)
+    enlace.addEventListener('blur', soltar)
+  }
+</script>

@@ -7,26 +7,35 @@ import { servicios } from '../data/servicios.js'
 
 <section
   id="servicios"
-  class="flex flex-col justify-center bg-surface py-26 lg:min-h-svh lg:pt-24 lg:pb-12"
+  class="bg-surface py-26 lg:py-24"
 >
   <div class="container-page">
-    <SectionHeading>Servicios</SectionHeading>
+    <SectionHeading data-aparecer>Servicios</SectionHeading>
 
-    <p class="mt-6 max-w-160 text-lg leading-relaxed text-stone sm:text-xl">
-      Hacemos desde reformas integrales hasta trabajos concretos, tanto en viviendas como en negocios.
-    </p>
+    <div data-aparecer class="mt-8 flex max-w-3xl flex-col gap-5 text-lg leading-lectura text-stone sm:text-xl">
+      <p>
+        Realizo todo tipo de reformas y trabajos en viviendas y locales comerciales, instalaciones, distribución, suelos,
+        paredes, techos, baño y cocina.
+      </p>
+      <p>
+        Trabajo en pisos del casco urbano, casas de campo, chalets de urbanizaciones como Condado de Alhama y locales
+        comerciales.
+      </p>
+    </div>
 
     {/* Carrusel con scroll-snap nativo: se desliza con el dedo, el trackpad o el
         teclado sin JavaScript. Los botones son una mejora que se activa encima. */}
     <div
-      class="relative mt-10"
+      class="relative mt-12"
+      data-aparecer
       data-carrusel
       role="region"
       aria-roledescription="carrusel"
       aria-label="Servicios"
     >
       <ul
-        class="flex snap-x snap-mandatory gap-4 overflow-x-auto scrollbar-none [&::-webkit-scrollbar]:hidden"
+        class="flex snap-x snap-mandatory gap-4 overflow-x-auto select-none scrollbar-none [&::-webkit-scrollbar]:hidden [@media(hover:hover)]:cursor-grab [@media(hover:hover)]:snap-none"
+        style="--fi: 0px; --fd: 0px; -webkit-mask-image: linear-gradient(to right, rgb(0 0 0 / 0) 0, rgb(0 0 0 / 0) calc(var(--fi) * 0.5), rgb(0 0 0 / 0.6) calc(var(--fi) * 0.75), #000 var(--fi), #000 calc(100% - var(--fd)), rgb(0 0 0 / 0.6) calc(100% - var(--fd) * 0.75), rgb(0 0 0 / 0) calc(100% - var(--fd) * 0.5), rgb(0 0 0 / 0) 100%); mask-image: linear-gradient(to right, rgb(0 0 0 / 0) 0, rgb(0 0 0 / 0) calc(var(--fi) * 0.5), rgb(0 0 0 / 0.6) calc(var(--fi) * 0.75), #000 var(--fi), #000 calc(100% - var(--fd)), rgb(0 0 0 / 0.6) calc(100% - var(--fd) * 0.75), rgb(0 0 0 / 0) calc(100% - var(--fd) * 0.5), rgb(0 0 0 / 0) 100%)"
         data-pista
       >
         {servicios.map((servicio) => (
@@ -55,16 +64,17 @@ import { servicios } from '../data/servicios.js'
         ))}
       </ul>
 
-      {/* Ocultos hasta que el script confirma que pueden funcionar. */}
+      {/* Ocultos hasta que el script confirma que pueden funcionar. Son dos flechas altas y
+          finas del color del texto, colocadas fuera de la pista, a los lados. */}
       <button
         type="button"
         data-anterior
         hidden
         aria-label="Servicio anterior"
-        class="absolute top-1/2 left-0 z-10 hidden size-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-ink shadow-[0_4px_16px_rgba(36,36,33,0.18)] transition hover:bg-cream focus-visible:ring-3 focus-visible:ring-clay/40 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-0 md:flex"
+        class="absolute top-1/2 -left-8 z-10 hidden h-72 w-20 -translate-y-1/2 items-center justify-start text-stone lg:-left-10 transition hover:scale-y-105 hover:text-ink focus-visible:ring-3 focus-visible:ring-clay/50 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-0 md:flex"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6" />
+        <svg width="28" height="140" viewBox="0 0 28 140" aria-hidden="true">
+          <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M24 4L4 70l20 66" />
         </svg>
       </button>
       <button
@@ -72,10 +82,10 @@ import { servicios } from '../data/servicios.js'
         data-siguiente
         hidden
         aria-label="Servicio siguiente"
-        class="absolute top-1/2 right-0 z-10 hidden size-12 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-ink shadow-[0_4px_16px_rgba(36,36,33,0.18)] transition hover:bg-cream focus-visible:ring-3 focus-visible:ring-clay/40 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-0 md:flex"
+        class="absolute top-1/2 -right-8 z-10 hidden h-72 w-20 -translate-y-1/2 items-center justify-end text-stone lg:-right-10 transition hover:scale-y-105 hover:text-ink focus-visible:ring-3 focus-visible:ring-clay/50 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-0 md:flex"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
+        <svg width="28" height="140" viewBox="0 0 28 140" aria-hidden="true">
+          <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M4 4l20 66L4 136" />
         </svg>
       </button>
     </div>
@@ -96,11 +106,18 @@ import { servicios } from '../data/servicios.js'
       pista.firstElementChild.getBoundingClientRect().width +
       parseFloat(getComputedStyle(pista).columnGap)
     const suave = !matchMedia('(prefers-reduced-motion: reduce)').matches
-    const mover = (sentido) =>
-      pista.scrollBy({ left: sentido * paso(), behavior: suave ? 'smooth' : 'auto' })
+    const mover = (sentido) => pista.scrollBy({ left: sentido * paso(), behavior: suave ? 'smooth' : 'auto' })
 
     anterior.addEventListener('click', () => mover(-1))
     siguiente.addEventListener('click', () => mover(1))
+
+    // Los bordes de la pista se desvanecen solo si hay más tarjetas al otro lado, y tanto
+    // como lo que queda por recorrer (hasta 40 px): así lo que sale parece ir saliendo.
+    const desvanecer = () => {
+      const resto = pista.scrollWidth - pista.clientWidth - pista.scrollLeft
+      pista.style.setProperty('--fi', `${Math.max(0, Math.min(pista.scrollLeft, 40))}px`)
+      pista.style.setProperty('--fd', `${Math.max(0, Math.min(resto, 40))}px`)
+    }
 
     const actualizar = () => {
       const enfocado = document.activeElement
@@ -108,9 +125,71 @@ import { servicios } from '../data/servicios.js'
       siguiente.disabled = pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 1
       // Un botón desactivado pierde el foco: se pasa al otro para no dejarlo en el aire.
       if (enfocado?.disabled) (enfocado === anterior ? siguiente : anterior).focus()
+      desvanecer()
     }
     pista.addEventListener('scroll', actualizar, { passive: true })
     window.addEventListener('resize', actualizar)
     actualizar()
+
+    // Con ratón se arrastra como con el dedo: la pista sigue al puntero y se queda donde se
+    // suelta, sin encajar en ninguna tarjeta (con ratón no hay snap), y al soltar conserva
+    // un poco de inercia.
+    let inicioX = 0
+    let inicioScroll = 0
+    let pulsado = false
+    let arrastrando = false
+    let muestras = []
+    let inercia = 0
+
+    const parar = () => cancelAnimationFrame(inercia)
+
+    pista.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return
+      parar()
+      pulsado = true
+      arrastrando = false
+      inicioX = e.clientX
+      inicioScroll = pista.scrollLeft
+      muestras = []
+    })
+    pista.addEventListener('pointermove', (e) => {
+      if (!pulsado) return
+      const dx = e.clientX - inicioX
+      if (!arrastrando && Math.abs(dx) > 5) {
+        arrastrando = true
+        pista.setPointerCapture(e.pointerId)
+        pista.style.cursor = 'grabbing'
+      }
+      if (!arrastrando) return
+      pista.scrollLeft = inicioScroll - dx
+      muestras.push({ t: e.timeStamp, x: pista.scrollLeft })
+      muestras = muestras.filter((m) => e.timeStamp - m.t < 100)
+    })
+    const soltar = (e) => {
+      if (!pulsado) return
+      pulsado = false
+      if (!arrastrando) return
+      pista.style.cursor = ''
+      // El clic que sigue a un arrastre no debe abrir el enlace de la tarjeta.
+      setTimeout(() => (arrastrando = false), 0)
+
+      const primera = muestras[0]
+      if (!suave || !primera || e.timeStamp - primera.t === 0) return
+      let velocidad = (pista.scrollLeft - primera.x) / (e.timeStamp - primera.t) // px/ms
+      let anterior = performance.now()
+      const frenar = (ahora) => {
+        const dt = ahora - anterior
+        anterior = ahora
+        pista.scrollLeft += velocidad * dt
+        velocidad *= Math.pow(0.995, dt)
+        if (Math.abs(velocidad) > 0.02) inercia = requestAnimationFrame(frenar)
+      }
+      inercia = requestAnimationFrame(frenar)
+    }
+    pista.addEventListener('pointerup', soltar)
+    pista.addEventListener('pointercancel', soltar)
+    pista.addEventListener('wheel', parar, { passive: true })
+    pista.addEventListener('click', (e) => arrastrando && e.preventDefault(), true)
+    pista.addEventListener('dragstart', (e) => e.preventDefault())
   })
 </script>

@@ -1,39 +1,60 @@
 ---
+import { Image } from 'astro:assets'
 import SectionHeading from '../components/ui/SectionHeading.astro'
-import PlaceholderImage from '../components/ui/PlaceholderImage.astro'
-
-const { proyectos } = Astro.props
+import { proyectos } from '../data/proyectos.js'
 ---
 
-<section id="proyectos" class="bg-surface-warm py-26">
-  <div class="container-page">
-    <SectionHeading>Proyectos</SectionHeading>
-
-    <div class="mt-10 space-y-14 lg:space-y-20">
-      {proyectos.map((proyecto) => (
-        <div
-          class:list={[
-            'grid items-center gap-5 lg:gap-8.75',
-            proyecto.imagenPrimero ? 'lg:grid-cols-[820fr_266fr]' : 'lg:grid-cols-[266fr_820fr]',
-          ]}
-        >
-          <h3 class="text-2xl leading-normal text-black sm:text-[32px]">
-            {proyecto.titulo}
-          </h3>
-          <PlaceholderImage
-            label={proyecto.titulo}
-            class={`aspect-820/461 w-full rounded-2xl ${proyecto.imagenPrimero ? 'lg:order-first' : ''}`}
-          />
-        </div>
-      ))}
-    </div>
-
-    <p class="mt-20 text-center text-base text-stone">
-      Para ver más proyectos <a
-        href="#contacto"
-        class="font-semibold text-clay underline"
-        rel="noopener noreferrer"
-      >contáctame</a>
-    </p>
+{/* El título y el cierre van en franjas finas pegadas a la primera y la última foto. La
+    sección no tiene padding propio: el título lleva el mismo padding superior que el resto
+    de secciones. */}
+<section id="proyectos" class="bg-surface">
+  <div class="container-page pt-26 pb-3 text-center sm:pb-4 lg:pt-24">
+    <SectionHeading data-aparecer>Trabajos Realizados</SectionHeading>
   </div>
+
+  {/* Cada foto ocupa la pantalla entera y se queda quieta mientras su <article> pasa por
+      encima, como el hero: la foto es fixed y el clip-path del <article> la recorta a su
+      hueco (background-attachment: fixed no funciona en iOS). El título es sticky al pie
+      de su <article>: entra con el borde de la foto, se queda abajo de la pantalla mientras
+      la foto se ve y, cuando se acaba, se va con su borde inferior. Solo CSS, sin JavaScript. */}
+  <div>
+    {proyectos.map((proyecto, i) => (
+      <article class="relative isolate flex h-lvh flex-col justify-end bg-ink [clip-path:inset(0)]">
+        {/* Fondo oscuro mientras carga la foto (o si no la hay): el título blanco se lee siempre.
+            Con object-cover la foto llena el ancho o el alto: sizes pide el mayor de los dos.
+            Al ser fixed el navegador las ve siempre "en pantalla" y no las carga en diferido;
+            fetchpriority="low" evita que le quiten ancho de banda a la foto del hero.
+            pointer-events-none: mantener pulsado, clic derecho o arrastrar caen en el
+            <article> y no en la foto, así no sale el menú de "Descargar imagen". */}
+        {proyecto.foto && (
+          <Image
+            src={proyecto.foto}
+            alt={proyecto.titulo}
+            widths={[640, 960, 1280, 1920]}
+            sizes={`max(100vw, ${Math.ceil((100 * proyecto.foto.width) / proyecto.foto.height)}vh)`}
+            fetchpriority="low"
+            class="pointer-events-none absolute inset-0 -z-10 size-full object-cover select-none motion-safe:fixed motion-safe:h-lvh"
+          />
+        )}
+
+        {/* El degradado va con el título, así siempre tiene fondo oscuro detrás. En móvil
+            deja hueco para la barra de WhatsApp/Llamar, que también está fija abajo. */}
+        <div class="sticky bottom-0 bg-linear-to-t from-ink/60 via-ink/15 to-transparent pt-12 pb-24 md:pb-10">
+          {/* Alternan de lado, como las filas imagen/título del diseño anterior. */}
+          <div class:list={['container-page flex flex-col text-white', i % 2 === 0 ? 'items-end text-right' : 'items-start']}>
+            <h3 class="max-w-3xl font-serif text-balance text-[28px] leading-tight font-bold tracking-[-0.03em] sm:text-[36px]">
+              {proyecto.titulo}
+            </h3>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <p data-aparecer class="container-page py-3 text-center text-sm leading-normal text-stone sm:py-4 sm:text-base">
+    Para ver más proyectos <a
+      href="#contacto"
+      class="font-semibold text-clay underline underline-offset-2 transition hover:text-clay-dark focus-visible:rounded-sm focus-visible:ring-3 focus-visible:ring-clay/35 focus-visible:outline-none"
+    >contáctame</a>
+  </p>
 </section>

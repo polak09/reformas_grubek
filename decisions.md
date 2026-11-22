@@ -4,13 +4,20 @@
 
 La web es informativa: no tiene estado ni interacción, solo enlaces y anclas.
 Por eso se genera como HTML estático y no se carga ningún framework en el navegador.
-Las únicas excepciones son dos scripts pequeños escritos en línea —unos 2 KB en total,
-sin archivo aparte ni petición extra—, y los dos mejoran algo que ya funciona sin ellos:
+Las únicas excepciones son unos pocos scripts pequeños escritos en línea —unos 3 KB en
+total, sin archivo aparte ni petición extra—, y todos mejoran algo que ya funciona sin ellos:
 
 - **Menú móvil**: lo cierra al elegir una sección o con Escape. Está montado sobre
   `<details>`, así que sin el script se abre y se cierra igual.
 - **Carrusel de servicios**: activa las flechas. La pista usa scroll-snap nativo, así
   que sin el script se desliza con el dedo, el trackpad o el teclado.
+- **Cabecera sobre el hero**: en las landings, arriba del todo la cabecera es
+  transparente y solo enseña la navegación; al hacer scroll vuelve a ser la barra
+  fija. Sin el script se queda siempre como barra.
+- **Aparición por secciones**: los bloques marcados con `data-aparecer` se funden al
+  entrar en pantalla. Solo se ocultan si el script de `<head>` ha marcado la página
+  con `data-animar`, que no lo hace con el movimiento reducido activado, así que sin
+  JavaScript se ve todo desde el principio.
 
 Si algún día hace falta algo interactivo (un formulario, una galería, un menú
 desplegable), se añade como isla en ese punto concreto —Astro admite React,
@@ -31,6 +38,20 @@ estática por cada entrada de `LOCALIDADES` en `src/data/localidades.js`.
 
 Añadir un municipio es añadir una entrada. Cambiar una sección se hace una vez
 y afecta a todas las páginas.
+
+Una landing puede llevar además su propio H1 (que también da el `<title>`) y un
+`contenido` con texto que solo sale en ella. Hoy solo la tiene Alhama de Murcia
+(`src/data/contenidoAlhama.js`), que es la página que compite por "reformas integrales
+alhama de murcia". Sin texto propio, las landings son la misma página con otro nombre
+y Google no posiciona bien ninguna de ellas.
+
+## Datos estructurados del negocio
+
+La home y las landings publican en el `<head>` un JSON-LD `HomeAndConstructionBusiness`
+(nombre, teléfono, Alhama de Murcia, municipios y servicios) y, en las de localidad,
+unas migas de pan. Sale de `src/lib/schema.js`, a partir de los mismos datos que la
+web, así que no hay que mantenerlo a mano. El nombre y el teléfono tienen que coincidir
+con la ficha de Google Business Profile.
 
 ## Estructura modular
 

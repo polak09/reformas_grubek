@@ -1,5 +1,4 @@
-// Sección "Proyectos": filas alternas de imagen (820x461) con la etiqueta al lado.
-const TIPOS_PROYECTO = ['Reforma', 'Instalación', 'Acabado']
+import { contenidoAlhama } from './contenidoAlhama.js'
 
 // Sección "Zona": el municipio donde se concentra el trabajo y el resto de sitios
 // a los que se va. De aquí sale el texto de la sección, así que añadir un municipio
@@ -17,33 +16,33 @@ export const OTROS_MUNICIPIOS = [
 const TEXTO_HERO =
   'Más de 10 años de experiencia en reformas e instalaciones en viviendas y negocios.'
 
-// Todo lo que cambia entre landings se deriva del nombre de la localidad, así que
-// añadir una página nueva es añadir una entrada a LOCALIDADES y nada más.
-function crearLanding({ nombre, ruta, titulo, descripcion }) {
+// Todo lo que cambia entre landings sale del nombre de la localidad, así que añadir una
+// página nueva es añadir una entrada a LOCALIDADES y nada más. Una landing puede fijar
+// su propio H1 (la búsqueda a la que apunta) y traer `contenido` propio: el texto que la
+// distingue de las demás. El <title> repite el H1 seguido de la marca.
+function crearLanding({ nombre, ruta, h1 = `Reformas en ${nombre}`, descripcion, contenido = null }) {
   return {
     seo: {
-      titulo,
-      ogTitulo: `Reformas en ${nombre} | Reformas Grubek`,
+      titulo: `${h1} | Reformas Grubek`,
       descripcion,
       ruta,
     },
     hero: {
-      h1: `Reformas ${nombre}`,
+      h1,
       texto: TEXTO_HERO,
     },
-    proyectos: TIPOS_PROYECTO.map((tipo, i) => ({
-      titulo: `${tipo} en ${nombre}`,
-      imagenPrimero: i % 2 === 0,
-    })),
+    contenido,
   }
 }
 
+const NOMBRE_HOME = 'Murcia'
+
 export const home = crearLanding({
-  nombre: 'Murcia',
+  nombre: NOMBRE_HOME,
   ruta: '/',
-  titulo: 'Reformas en Murcia | Presupuesto sin compromiso',
+  h1: 'Reformas integrales en Murcia',
   descripcion:
-    'Reformas integrales, baños, interiores, pintura, pladur, fontanería y electricidad en Murcia, Condado de Alhama, Librilla y alrededores. Presupuesto sin compromiso.',
+    'Reformas integrales y parciales en Murcia: baños, cocinas, pintura, pladur, fontanería y electricidad. Más de 10 años de experiencia. Presupuesto gratis.',
 })
 
 // Cada entrada genera una página estática en /reformas/<slug>.
@@ -53,8 +52,12 @@ export const LOCALIDADES = [
   {
     slug: 'alhama-de-murcia',
     nombre: 'Alhama de Murcia',
+    // El municipio donde se concentra el trabajo: la landing que compite por
+    // "reformas integrales alhama de murcia", con texto propio y preguntas frecuentes.
+    h1: 'Reformas integrales en Alhama de Murcia',
     descripcion:
-      'Reformas integrales, baños, interiores, pintura, pladur, fontanería y electricidad en Alhama de Murcia, Condado de Alhama, Librilla y alrededores. Presupuesto sin compromiso.',
+      'Reformas integrales en Alhama de Murcia de pisos, casas y locales: baños, cocinas, fontanería, electricidad, pladur y pintura. Presupuesto sin compromiso.',
+    contenido: contenidoAlhama,
   },
   {
     slug: 'totana',
@@ -82,11 +85,14 @@ export const LOCALIDADES = [
   },
 ]
 
-export function landingDeLocalidad({ slug, nombre, descripcion }) {
-  return crearLanding({
-    nombre,
-    descripcion,
-    ruta: `/reformas/${slug}`,
-    titulo: `Reformas en ${nombre} | Presupuesto sin compromiso`,
-  })
+// Página propia de un municipio de la Zona: su landing, la home si es Murcia, o null
+// si aún no tiene (entonces sale en la lista sin enlace).
+export function rutaDeMunicipio(nombre) {
+  if (nombre === NOMBRE_HOME) return home.seo.ruta
+  const localidad = LOCALIDADES.find((l) => l.nombre === nombre)
+  return localidad ? `/reformas/${localidad.slug}` : null
+}
+
+export function landingDeLocalidad({ slug, ...localidad }) {
+  return crearLanding({ ...localidad, ruta: `/reformas/${slug}` })
 }
